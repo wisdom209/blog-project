@@ -4,6 +4,7 @@ import '../App.css';
 import Header from '../components/Header';
 import axios from 'axios';
 import { MyContext } from './context';
+import { parseISO, compareDesc } from 'date-fns';
 
 function Home() {
 	const [article, setArticle] = useState([]);
@@ -22,9 +23,13 @@ function Home() {
 				<b>Loading . . . </b>
 			) : (
 				<main>
-					{article.map((v, i) => {
-						return <ArticleList key={v.id} prop={v} />;
-					})}
+					{
+						article
+							.reverse()
+							.map((v) => {
+								return <ArticleList key={v.id} prop={v} />;
+							})
+					}
 				</main>
 			)}
 		</>
