@@ -6,12 +6,13 @@ import { MyContext } from './context';
 import { nanoid } from 'nanoid'
 
 function Create() {
+	const [author, setAuthor] = useState('')
 	const [title, setTitle] = useState('');
 	const [summary, setSummary] = useState('');
 	const [paragraph, setParagraph] = useState('');
 	const [postCreated, setPostCreated] = useState(false);
 	const [image, setImage] = useState('cars');
-	const { baseUrl, baseEndPoint } = useContext(MyContext);
+	const { baseEndPoint } = useContext(MyContext);
 
 
 	const handleSubmit = (e) => {
@@ -22,6 +23,7 @@ function Create() {
 
 			const post = {
 				id: `${nanoid()}`,
+				username: author,
 				title,
 				summary,
 				paragraph,
@@ -45,6 +47,13 @@ function Create() {
 			{postCreated && <Navigate to="/" replace={true} />}
 			<h2 style={{ textAlign: 'center' }}>Create a brand new post</h2>
 			<form className="auth-form" onSubmit={handleSubmit}>
+				<input
+					placeholder="Author"
+					type="text"
+					onChange={(e) => {
+						setAuthor(e.target.value);
+					}}
+				/>
 				<input
 					placeholder="Title"
 					type="text"
