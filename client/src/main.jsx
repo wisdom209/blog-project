@@ -24,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 					<Route path="/view/:post_id" element={<View />}></Route>
 					<Route path="/edit/:post_id" element={<Edit />}></Route>
 					<Route path="/create" element={<Create />}></Route>
+					<Route path="/image.json" element={() => null}></Route>
 					<Route path="*" element={<div>404</div>}></Route>
 				</Routes>
 			</Router>
