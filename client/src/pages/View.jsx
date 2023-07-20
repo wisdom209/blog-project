@@ -12,7 +12,7 @@ function View() {
 	const { baseUrl, baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
-		axios.get(baseEndPoint + `post?id=${id}`).then((response) => {
+		axios.get(baseEndPoint + `post?id=${post_id}`).then((response) => {
 			setArticle(response.data);
 		});
 	}, []);
