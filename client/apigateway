@@ -1,0 +1,97 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+} from "@aws-sdk/lib-dynamodb";
+
+const client = new DynamoDBClient({});
+const dynamo = DynamoDBDocumentClient.from(client);
+const tableName = "posttable";
+
+export const handler = async (event) => {
+  let body;
+  let requestJSON;
+  let id;
+  let statusCode = 200;
+  const postPath = '/post';
+  const postsPath = '/posts';
+  let headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    };
+  
+  try{
+    switch(true){
+      case event.path == postPath && event.httpMethod == "DELETE":
+      id = event.queryStringParameters.id;
+      await dynamo.send(
+          new DeleteCommand({
+            TableName: tableName,
+            Key: {
+              id: id,
+            },
+          })
+        );
+        body = `Deleted item ${id}`
+        break;
+      case event.path == postPath && event.httpMethod == 'GET':
+        id = event.queryStringParameters.id;
+        body = await dynamo.send(
+          new GetCommand({
+            TableName: tableName,
+            Key: {
+              id: id,
+            },
+          })
+        );
+        body = body.Item;
+        break;
+      case event.path == postsPath && event.httpMethod == 'GET':
+        body = await dynamo.send(
+          new ScanCommand({ TableName: tableName })
+        );
+        body = body.Items;
+        break;
+      case event.path == postPath && event.httpMethod == 'PUT':
+        requestJSON = JSON.parse(event.body);
+        await dynamo.send(
+          new PutCommand({
+            TableName: tableName,
+            Item: {...requestJSON, date: Date.now()}
+          })
+        );
+        body = `Updated item ${requestJSON.id}`;
+        break;
+      case event.path == postPath && event.httpMethod == 'POST':
+        requestJSON = JSON.parse(event.body);
+        await dynamo.send(
+          new PutCommand({
+            TableName: tableName,
+            Item: {...requestJSON, date: Date.now()},
+            ConditionExpression: 'attribute_not_exists(id)'
+          })
+        );
+        body = `Added item ${requestJSON.id}`;
+        break;
+      default:
+        throw new Error(`Unsupported route: "${event.path}"`)
+      
+    }
+    
+  }catch(err){
+    statusCode = 400;
+    body = event;
+  } finally {
+    body = JSON.stringify(body);
+  }
+  
+  return {
+    statusCode,
+    body,
+    headers,
+  };
+};
