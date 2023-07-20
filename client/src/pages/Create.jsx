@@ -28,7 +28,6 @@ function Create() {
 				summary,
 				paragraph,
 				image: img,
-				username: 'Jeff Saliba',
 				date: Date.now(),
 			};
 
