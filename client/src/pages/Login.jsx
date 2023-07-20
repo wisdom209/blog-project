@@ -4,7 +4,6 @@ import '../App.css';
 import axios from 'axios';
 import { MyContext } from './context';
 import { Navigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 function Login() {
   const [username, setUsername] = useState('');
