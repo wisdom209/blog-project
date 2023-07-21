@@ -68,12 +68,15 @@ function Edit() {
 					}}
 				/>
 
-				<ReactQuill style={{
+				<div style={{
 					marginTop: '10px',
 					width: '50%',
 					border: '1px solid #aaa',
 					borderRadius: '5px',
-				}} theme='snow' value={paragraph} onChange={setParagraph} placeholder='Enter your text' />
+					height: '250px'
+				}}>
+					<ReactQuill theme='snow' value={paragraph} onChange={setParagraph} placeholder='Enter your text' />
+				</div>
 
 				<button type="submit">Submit</button>
 			</form>
