@@ -8,7 +8,7 @@ import { parseISO, compareDesc } from 'date-fns';
 
 function Home() {
 	const [article, setArticle] = useState([]);
-	const { baseUrl, baseEndPoint } = useContext(MyContext);
+	const { baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
 		axios.get(baseEndPoint + 'posts').then((response) => {
@@ -25,7 +25,7 @@ function Home() {
 				<main>
 					{
 						article
-							.reverse()
+							.sort((a, b) => b.date - a.date)
 							.map((v) => {
 								return <ArticleList key={v.id} prop={v} />;
 							})

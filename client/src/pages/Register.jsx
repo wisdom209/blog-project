@@ -8,12 +8,12 @@ function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistered, setiSRegistered] = useState(false);
-  const { baseUrl } = useContext(MyContext);
+  const { baseEndPoint } = useContext(MyContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${baseUrl}/register`, { username, password })
+      .post(`${baseEndPoint}/register`, { username, password })
       .then((response) => {
         setiSRegistered(true);
         alert('Registeration successful');

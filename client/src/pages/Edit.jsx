@@ -9,7 +9,7 @@ function Edit() {
 	const [summary, setSummary] = useState('');
 	const [paragraph, setParagraph] = useState('');
 	const [updateData, setUpdateData] = useState({});
-	const { baseUrl, baseEndPoint } = useContext(MyContext);
+	const { baseEndPoint } = useContext(MyContext);
 	const { post_id } = useParams();
 	const [articlePosted, setArticlePosted] = useState(false);
 

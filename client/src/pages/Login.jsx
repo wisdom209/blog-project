@@ -9,12 +9,12 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-  const { baseUrl } = useContext(MyContext);
+  const { baseEndPoint } = useContext(MyContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post(`${baseUrl}/login`, { username, password })
+      .post(`${baseEndPoint}/login`, { username, password })
       .then((response) => {
         alert('Login Successful');
         Cookies.set('token', response.data.token);

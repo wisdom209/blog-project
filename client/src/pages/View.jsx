@@ -9,7 +9,7 @@ import { MyContext } from './context';
 function View() {
 	const { post_id } = useParams();
 	const [article, setArticle] = useState('');
-	const { baseUrl, baseEndPoint } = useContext(MyContext);
+	const { baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
 		axios.get(baseEndPoint + `post?id=${post_id}`).then((response) => {
