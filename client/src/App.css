@@ -124,6 +124,10 @@ main {
 	padding: 5px;
 }
 
+.quil {
+	width: 50%;
+}
+
 @media screen and (max-width: 500px) {
 	.auth-form input {
 		display: block;
@@ -141,6 +145,10 @@ main {
 		margin-top: 10px;
 		width: 50%;
 		padding: 5px;
+	}
+
+	.quil {
+		width: 100%;
 	}
 }
 

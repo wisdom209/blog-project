@@ -86,14 +86,14 @@ function Create() {
 						setSummary(e.target.value);
 					}}
 				/>
+				<div class="quil">
+					<ReactQuill style={{
+						marginTop: '10px',
+						border: '1px solid #aaa',
+						borderRadius: '5px',
+					}} theme='snow' value={paragraph} onChange={setParagraph} placeholder='Enter your text' />
+				</div>
 
-				<ReactQuill style={{
-					marginTop: '10px',
-					width: '50%',
-					border: '1px solid #aaa',
-					borderRadius: '5px',
-				}} theme='snow' value={paragraph} onChange={setParagraph} placeholder='Enter your text' />
-				
 				<button type="submit">Submit</button>
 			</form>
 		</div>
