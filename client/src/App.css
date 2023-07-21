@@ -52,6 +52,14 @@ main {
 	margin: 0 auto;
 }
 
+@media screen and (max-width: 500px) {
+	main {
+		width: 500px;
+		display: grid;
+		margin: 20px;
+	}
+}
+
 .article-entry {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
@@ -67,9 +75,13 @@ main {
 		align-items: flex-start;
 		width: 500px;
 	}
-	
-	#article-img{
+
+	#article-img {
 		width: 80%;
+	}
+
+	.article-entry p {
+		max-width: 80%;
 	}
 }
 
