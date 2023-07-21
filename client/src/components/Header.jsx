@@ -26,13 +26,15 @@ function Header() {
 						<div>
 							<Link to={`/edit/${param.post_id}`}>Modify this post</Link>
 							&nbsp;
-							<button
+							<a
 								style={{
 									background: 'none',
 									border: 'none',
 									color: 'red',
-									textDecoration: 'underline',
+									textDecoration: 'none',
 									cursor: 'pointer',
+									marginLeft: '5px',
+									fontWeight: 'bold'
 								}}
 								onClick={(e) => {
 									axios
@@ -44,7 +46,7 @@ function Header() {
 								}}
 							>
 								Delete this post
-							</button>
+							</a>
 						</div>
 					)}
 				</nav>

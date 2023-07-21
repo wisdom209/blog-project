@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 function ArticleList({ prop }) {
-  const oldimg = 'https://cdn.mos.cms.futurecdn.net/6NRkmu3P6HKqSK66jTniTH.jpg';
   const timestamp = prop.date;
   const date = new Date(parseInt(timestamp));
 
@@ -12,7 +11,7 @@ function ArticleList({ prop }) {
     <div className="article-entry">
       <section>
         <Link to={`/view/${prop.id}`}>
-          <img src={prop.image} alt="profile_image" />
+          <img id="article-img" src={prop.image} alt="profile_image" />
         </Link>
       </section>
 
@@ -21,7 +20,7 @@ function ArticleList({ prop }) {
           <Link to={`/view/${prop.id}`}>
             <b>{prop.title}</b>
           </Link>
-          <p>{format(date, 'd-MMM-yyyy')}</p>
+          <p style={{color:'#444a', marginTop: '5px'}}>{format(date, 'd-MMM-yyyy')}</p>
         </div>
         <p>{prop.summary}</p>
       </article>
