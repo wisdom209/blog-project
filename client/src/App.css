@@ -65,10 +65,11 @@ main {
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
+		width: 500px;
 	}
 	
 	#article-img{
-		width: 70%;
+		width: 80%;
 	}
 }
 
