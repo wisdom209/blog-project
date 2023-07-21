@@ -131,7 +131,7 @@ main {
 @media screen and (max-width: 500px) {
 	.auth-form input {
 		display: block;
-		width: 100%;
+		width: 80%;
 		height: 2rem;
 		margin-top: 10px;
 		align-self: center;
@@ -148,7 +148,7 @@ main {
 	}
 
 	.quil {
-		width: 100%;
+		width: 80%;
 	}
 }
 
