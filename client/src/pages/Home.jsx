@@ -4,7 +4,6 @@ import '../App.css';
 import Header from '../components/Header';
 import axios from 'axios';
 import { MyContext } from './context';
-import { parseISO, compareDesc } from 'date-fns';
 
 function Home() {
 	const [article, setArticle] = useState([]);

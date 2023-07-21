@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import axios from 'axios';
 import { MyContext } from './context';
 import { useParams, Navigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
 
 function Edit() {
 	const [title, setTitle] = useState('');
@@ -65,15 +67,14 @@ function Edit() {
 						setSummary(e.target.value);
 					}}
 				/>
-				<textarea
-					rows={5}
-					cols={50}
-					placeholder="Enter your text"
-					value={paragraph}
-					onChange={(e) => {
-						setParagraph(e.target.value);
-					}}
-				/>
+
+				<ReactQuill style={{
+					marginTop: '10px',
+					width: '50%',
+					border: '1px solid #aaa',
+					borderRadius: '5px',
+				}} theme='snow' value={paragraph} onChange={setParagraph} placeholder='Enter your text' />
+
 				<button type="submit">Submit</button>
 			</form>
 		</div>

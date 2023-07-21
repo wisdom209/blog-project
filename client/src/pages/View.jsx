@@ -17,10 +17,6 @@ function View() {
 		});
 	}, []);
 
-	const date = article.date
-		? format(parseInt(article.date), 'd-MMMM-yyyy')
-		: 'Some time ago';
-
 	return (
 		<div className="view">
 			<Header />
@@ -31,11 +27,14 @@ function View() {
 					<img src={article.image} alt="profile_image" />
 					<h2>{article.title}</h2>
 					<p>
-						by {article.username} &bull; <span>{date}</span>
+						by {article.username} &nbsp; &bull; &nbsp;
+						<span>{format(parseInt(article.date), 'd-MMMM-yyyy')}</span>
 					</p>
 				</div>
 			)}
-			<article>{article.paragraph}</article>
+			
+			<article dangerouslySetInnerHTML={{ __html: article.paragraph }}></article>
+
 		</div>
 	);
 }
