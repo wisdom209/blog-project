@@ -84,14 +84,15 @@ main {
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
-		width:350px;
+		width: 350px;
 	}
 
 	#article-img {
 		width: 80%;
 	}
 
-	.article-entry p, .article-entry a {
+	.article-entry p,
+	.article-entry a {
 		max-width: 350px;
 	}
 }
@@ -160,4 +161,8 @@ main {
 
 .view span {
 	color: #aaa;
+}
+
+.ql-editor {
+	min-height: 12em;
 }
