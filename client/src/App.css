@@ -91,7 +91,7 @@ main {
 		width: 80%;
 	}
 
-	.article-entry p {
+	.article-entry p, .article-entry a {
 		max-width: 350px;
 	}
 }
