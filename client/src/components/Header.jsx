@@ -9,11 +9,19 @@ function Header() {
 	const location = useLocation()
 	const { baseEndPoint } = useContext(MyContext);
 	const [deleted, setDeleted] = useState(false);
+	const [ownsPost, setOwnsPost] = useState(false)
 
 	useEffect(() => {
 		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
 			console.log('get verify', response.data)
-			setUsername(response.data.username)
+			let currentUsername = response.data.username;
+			setUsername(currentUsername)
+			axios.get(baseEndPoint + `/post/${param.post_id}`, { withCredentials: true }).then((response) => {
+				if (response.data.username == currentUsername) {
+					setOwnsPost(true)
+				}
+			});
+
 		})).catch(err => {
 			console.log('err', err)
 		})
@@ -92,16 +100,12 @@ function Header() {
 					}
 
 					{
-						!username && location.pathname == `/view/${param.post_id}` &&
-						<Link to="/login">Login</Link>
-					}
-					{
-						username && location.pathname == `/view/${param.post_id}` &&
+						ownsPost && location.pathname == `/view/${param.post_id}` &&
 						<>
 							<Link to={`/edit/${param.post_id}`}>Modify this Post</Link>
 							&nbsp;
 							&nbsp;
-							<Link onClick={handleDelete}>Delete this post</Link>
+							<Link style={{ color: 'red' }} onClick={handleDelete}>Delete this post</Link>
 						</>
 					}
 
