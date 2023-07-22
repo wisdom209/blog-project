@@ -63,7 +63,7 @@ function Create() {
 					}}
 				/>
 
-				<label for="cars" style={{ marginTop: '10px' }}>
+				<label style={{ marginTop: '10px' }}>
 					Choose a Category:
 				</label>
 				<select
@@ -86,7 +86,7 @@ function Create() {
 						setSummary(e.target.value);
 					}}
 				/>
-				<div class="quil">
+				<div className="quil">
 					<ReactQuill style={{
 						marginTop: '10px',
 						border: '1px solid #aaa',

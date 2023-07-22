@@ -9,8 +9,9 @@ function Header() {
 	const location = useLocation()
 	const { baseEndPoint } = useContext(MyContext);
 	const [deleted, setDeleted] = useState(false);
+
 	useEffect(() => {
-		axios.get(baseEndPoint + '/verify', {withCredentials: true, headers:{}}).then((response => {
+		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
 			console.log('get verify', response.data)
 			setUsername(response.data.username)
 		})).catch(err => {
@@ -18,7 +19,15 @@ function Header() {
 		})
 	}, [])
 
-
+	const handleLogout = () => {
+		axios.get(baseEndPoint + '/logout', { withCredentials: true }).then((response) => {
+			alert(response.data)
+		})
+			.catch(err => {
+				alert(err.message)
+				console.log(err.message)
+			})
+	}
 
 	return (
 		<div>
@@ -50,10 +59,10 @@ function Header() {
 						<div>
 							{username ?
 								<>
-									<Link to='/create/post_id'>Create Post</Link>
+									<Link to='/create'>Create Post</Link>
 									&nbsp;
 									&nbsp;
-									<Link to='/login'>Logout</Link>
+									<Link to='/login' onClick={handleLogout}>Logout</Link>
 									&nbsp;
 									&nbsp;
 									<a>{username}</a>

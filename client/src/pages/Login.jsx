@@ -12,10 +12,10 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		axios.post(baseEndPoint + '/login', { username, password }, {withCredentials: true}).then(response => {
+		axios.post(baseEndPoint + '/login', { username, password }, { withCredentials: true }).then(response => {
 			setIsLoggedIn(true)
 		}).catch(error => {
-			console.log(error)
+			alert("Invalid credentials")
 		})
 	}
 
@@ -23,6 +23,7 @@ function Login() {
 		<div>
 			{isLoggedIn && <Navigate to='/' />}
 			<Header />
+			<h2 style={{ textAlign: 'center', marginTop: '50px' }}>Login</h2>
 			<form className='auth-form' onSubmit={handleSubmit}>
 				<input placeholder='username' type='text' onChange={(e) => setUsername(e.target.value)} />
 				<input placeholder='password' type='password' onChange={(e) => setPassword(e.target.value)} />

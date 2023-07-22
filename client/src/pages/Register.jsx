@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import Header from '../components/Header'
 import { MyContext } from './context'
 import { Navigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Register() {
 
@@ -16,7 +17,7 @@ function Register() {
 			alert("Registeration Successful")
 			setIsRegistered(true)
 		}).catch(error => {
-			console.log(error)
+			alert('Registration failed')
 		})
 	}
 
@@ -24,10 +25,11 @@ function Register() {
 		<div>
 			{isRegistered && <Navigate to='/login' />}
 			<Header />
+			<h2 style={{ textAlign: 'center', marginTop: '30px' }}>Register</h2>
 			<form className='auth-form' onSubmit={handleSubmit}>
 				<input placeholder='username' type='text' onChange={(e) => setUsername(e.target.value)} />
 				<input placeholder='password' type='password' onChange={(e) => setPassword(e.target.value)} />
-				<button type='submit'>Login</button>
+				<button type='submit'>Register</button>
 			</form>
 		</div>
 	)
