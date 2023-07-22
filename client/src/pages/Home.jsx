@@ -4,13 +4,14 @@ import '../App.css';
 import Header from '../components/Header';
 import axios from 'axios';
 import { MyContext } from './context';
+import { parseISO, format } from 'date-fns';
 
 function Home() {
 	const [article, setArticle] = useState([]);
 	const { baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
-		axios.get(baseEndPoint + 'posts').then((response) => {
+		axios.get(baseEndPoint + '/posts').then((response) => {
 			setArticle(response.data);
 		});
 	}, []);
@@ -24,9 +25,13 @@ function Home() {
 				<main>
 					{
 						article
-							.sort((a, b) => b.date - a.date)
+							.sort((a, b) => {
+								let aUnix = new Date(a).getTime()
+								let bUnix = new Date(b).getTime()
+								return bUnix - aUnix
+							})
 							.map((v) => {
-								return <ArticleList key={v.id} prop={v} />;
+								return <ArticleList key={v._id} prop={v} />;
 							})
 					}
 				</main>

@@ -12,7 +12,7 @@ function View() {
 	const { baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
-		axios.get(baseEndPoint + `post?id=${post_id}`).then((response) => {
+		axios.get(baseEndPoint + `post?id=${post_id}`, { withCredentials: true }).then((response) => {
 			setArticle(response.data);
 		});
 	}, []);
@@ -32,7 +32,7 @@ function View() {
 					</p>
 				</div>
 			)}
-			
+
 			<article dangerouslySetInnerHTML={{ __html: article.paragraph }}></article>
 
 		</div>

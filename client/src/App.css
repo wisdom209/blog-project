@@ -15,6 +15,12 @@ a {
 	text-decoration: none;
 }
 
+header{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 header div {
 	display: flex;
 	justify-content: space-around;
@@ -30,10 +36,11 @@ header h1 {
 	margin-top: 10px;
 }
 
-header a {
+header nav {
 	display: flex;
 	text-decoration: none;
 	margin-left: 10px;
+	translate: 30px 5px;
 }
 
 header hr {

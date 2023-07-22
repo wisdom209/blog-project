@@ -1,58 +1,94 @@
-import React, { useContext, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, Navigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { MyContext } from '../pages/context';
 
 function Header() {
+	const [username, setUsername] = useState('')
 	const param = useParams();
+	const location = useLocation()
 	const { baseEndPoint } = useContext(MyContext);
 	const [deleted, setDeleted] = useState(false);
+	useEffect(() => {
+		axios.get(baseEndPoint + '/verify', {withCredentials: true, headers:{}}).then((response => {
+			console.log('get verify', response.data)
+			setUsername(response.data.username)
+		})).catch(err => {
+			console.log('err', err)
+		})
+	}, [])
+
+
 
 	return (
-		<header>
-			{deleted && <Navigate to="/" replace={true} />}
-			<div>
-				<Link to="/">
-					<div>
-						<h1>BLOG READER</h1>
-					</div>
-				</Link>
+		<div>
+			<header>
+				<div>
+					<Link to='/'>
+						<h1>Blog Reader</h1>
+					</Link>
+				</div>
+
 				<nav>
-					{JSON.stringify(param) === '{}' ? (
-						<Link to="/create">
-							<span style={{ marginLeft: '1.5rem' }}>Create Post</span>
-						</Link>
-					) : (
+					{location.pathname == '/login' &&
 						<div>
-							<Link to={`/edit/${param.post_id}`}>Modify this post</Link>
+							<Link to='/'>View all</Link>
 							&nbsp;
-							<a
-								style={{
-									background: 'none',
-									border: 'none',
-									color: 'red',
-									textDecoration: 'none',
-									cursor: 'pointer',
-									marginLeft: '5px',
-									fontWeight: 'bold'
-								}}
-								onClick={(e) => {
-									axios
-										.delete(baseEndPoint + `post?id=${param.post_id}`)
-										.then((response) => {
-											alert('Post deleted');
-											setDeleted(true);
-										})
-								}}
-							>
-								Delete this post
-							</a>
+							&nbsp;
+							<Link to='/register'>Register</Link>
 						</div>
-					)}
+					}
+					{location.pathname == '/register' &&
+						<div>
+							<Link to='/'>View all</Link>
+							&nbsp;
+							&nbsp;
+							<Link to='/login'>Login</Link>
+						</div>
+					}
+					{location.pathname == '/' &&
+						<div>
+							{username ?
+								<>
+									<Link to='/create/post_id'>Create Post</Link>
+									&nbsp;
+									&nbsp;
+									<Link to='/login'>Logout</Link>
+									&nbsp;
+									&nbsp;
+									<a>{username}</a>
+								</> : (
+									<>
+										<Link to='/login'>Login</Link>
+										&nbsp;
+										&nbsp;
+										<Link to='/register'>Register</Link>
+
+									</>
+								)
+							}
+
+						</div>
+					}
+
+					{
+						!username && location.pathname == `/view/${param.post_id}` &&
+						<Link to="/login">Login</Link>
+					}
+					{
+						username && location.pathname == `/view/${param.post_id}` &&
+						<>
+							<a>Modify this Post</a>
+							&nbsp;
+							&nbsp;
+							<a>Delete this post</a>
+						</>
+					}
+
 				</nav>
-			</div>
+			</header >
 			<hr />
-		</header>
+		</div>
 	);
 }
 
