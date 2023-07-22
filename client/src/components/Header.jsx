@@ -24,13 +24,24 @@ function Header() {
 			alert(response.data)
 		})
 			.catch(err => {
-				alert(err.message)
+				console.log(err.message)
+			})
+	}
+
+	const handleDelete = (e) => {
+		axios.delete(baseEndPoint + `/post/${param.post_id}`, { withCredentials: true })
+			.then((response) => {
+				alert("Item Deleted")
+				setDeleted(true)
+			})
+			.catch(err => {
 				console.log(err.message)
 			})
 	}
 
 	return (
 		<div>
+			{deleted && <Navigate to='/' />}
 			<header>
 				<div>
 					<Link to='/'>
@@ -87,10 +98,10 @@ function Header() {
 					{
 						username && location.pathname == `/view/${param.post_id}` &&
 						<>
-							<a>Modify this Post</a>
+							<Link to={`/edit/${param.post_id}`}>Modify this Post</Link>
 							&nbsp;
 							&nbsp;
-							<a>Delete this post</a>
+							<Link onClick={handleDelete}>Delete this post</Link>
 						</>
 					}
 

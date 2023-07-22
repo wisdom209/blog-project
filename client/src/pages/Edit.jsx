@@ -17,7 +17,7 @@ function Edit() {
 
 	useEffect(() => {
 		axios
-			.get(baseEndPoint + `post?id=${post_id}`)
+			.get(baseEndPoint + `/post/${post_id}`)
 			.then((response) => {
 				setTitle(response.data.title);
 				setSummary(response.data.summary);
@@ -25,7 +25,7 @@ function Edit() {
 				setUpdateData(response.data);
 			})
 			.catch((error) => {
-				alert(error);
+				console.log(error.message)
 			});
 	}, []);
 
@@ -33,7 +33,7 @@ function Edit() {
 		e.preventDefault();
 		const data = { ...updateData, title, summary, paragraph };
 		axios
-			.put(baseEndPoint + 'post', data)
+			.put(baseEndPoint + '/post', data, {withCredentials: true})
 			.then((response) => {
 				alert('Successfully modified post');
 				setArticlePosted(true);

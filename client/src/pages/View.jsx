@@ -12,7 +12,7 @@ function View() {
 	const { baseEndPoint } = useContext(MyContext);
 
 	useEffect(() => {
-		axios.get(baseEndPoint + `post?id=${post_id}`, { withCredentials: true }).then((response) => {
+		axios.get(baseEndPoint + `/post/${post_id}`, { withCredentials: true }).then((response) => {
 			setArticle(response.data);
 		});
 	}, []);
@@ -28,7 +28,7 @@ function View() {
 					<h2>{article.title}</h2>
 					<p>
 						by {article.username} &nbsp; &bull; &nbsp;
-						<span>{format(parseInt(article.date), 'd-MMMM-yyyy')}</span>
+						<span>{format(parseInt(article.updatedAt), 'd-MMMM-yyyy')}</span>
 					</p>
 				</div>
 			)}

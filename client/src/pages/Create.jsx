@@ -8,7 +8,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 
 function Create() {
-	const [author, setAuthor] = useState('')
 	const [title, setTitle] = useState('');
 	const [summary, setSummary] = useState('');
 	const [paragraph, setParagraph] = useState('');
@@ -21,24 +20,27 @@ function Create() {
 		e.preventDefault();
 		axios.get('./image.json').then(result => {
 			let len = result.data[image].length;
+			
 			let img = result.data[image][Math.floor(Math.random() * (len - 1)) + 1].image
-
+			console.log(img)
 			const post = {
-				id: `${nanoid()}`,
-				username: author,
 				title,
 				summary,
 				paragraph,
 				image: img,
-				date: Date.now(),
 			};
 
 			axios
-				.post(`${baseEndPoint}post`, post)
+				.post(baseEndPoint + '/post', post, { withCredentials: true })
 				.then((response) => {
 					alert('Post created successfully');
 					setPostCreated(true);
 				})
+				.catch(err => {
+					console.log(err)
+				})
+		}).catch(err => {
+			console.log(err)
 		})
 	};
 
@@ -46,15 +48,8 @@ function Create() {
 		<div>
 			<Header />
 			{postCreated && <Navigate to="/" replace={true} />}
-			<h2 style={{ textAlign: 'center' }}>Create a brand new post</h2>
+			<h2 style={{ textAlign: 'center', marginTop: '50px' }}>Create a brand new post</h2>
 			<form className="auth-form" onSubmit={handleSubmit}>
-				<input
-					placeholder="Author"
-					type="text"
-					onChange={(e) => {
-						setAuthor(e.target.value);
-					}}
-				/>
 				<input
 					placeholder="Title"
 					type="text"

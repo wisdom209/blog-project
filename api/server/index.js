@@ -33,7 +33,6 @@ mongoose.connect(MONGO_URI)
 
 /* VERIFY TOKEN */
 const verifyToken = (req, res, next) => {
-
 	try {
 		const token = req.cookies.jwt;
 		jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -90,11 +89,11 @@ app.post('/post', verifyToken, async (req, res) => {
 			image,
 			username
 		} = req.body;
-
 		post = new Post({ ...post, username: req.user.username });
 		await post.save();
 		res.status(200).json(post)
 	} catch (error) {
+		console.log('token', error.message)
 		res.status(500).json(error)
 	}
 });
@@ -102,11 +101,19 @@ app.post('/post', verifyToken, async (req, res) => {
 /* UPDATE A POST */
 app.put('/post', verifyToken, async (req, res) => {
 	try {
+
 		let { _id, title, paragraph, image, summary } = req.body;
 		let post = { title, paragraph, image, summary, paragraph }
-		post = await Post.findOneAndUpdate({ _id }, post, { new: true })
+		post = await Post.findById(_id)
+		if (req.user.username == post.username) {
+			post = await Post.findOneAndUpdate({ _id }, req.body, { new: true })
+		}
+		else {
+			return res.status(401).json('unauthorized')
+		}
 		res.status(200).json(post)
 	} catch (error) {
+		console.log('err', error.message)
 		res.status(500).json(error.message)
 	}
 });
