@@ -4,7 +4,6 @@ import '../App.css';
 import Header from '../components/Header';
 import axios from 'axios';
 import { MyContext } from './context';
-import { parseISO, format } from 'date-fns';
 
 function Home() {
 	const [article, setArticle] = useState([]);
@@ -26,8 +25,8 @@ function Home() {
 					{
 						article
 							.sort((a, b) => {
-								let aUnix = new Date(a).getTime()
-								let bUnix = new Date(b).getTime()
+								let aUnix = new Date(a.createdAt).getTime()
+								let bUnix = new Date(b.createdAt).getTime()
 								return bUnix - aUnix
 							})
 							.map((v) => {

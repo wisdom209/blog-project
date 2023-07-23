@@ -16,12 +16,13 @@ function Header() {
 			console.log('get verify', response.data)
 			let currentUsername = response.data.username;
 			setUsername(currentUsername)
-			axios.get(baseEndPoint + `/post/${param.post_id}`, { withCredentials: true }).then((response) => {
-				if (response.data.username == currentUsername) {
-					setOwnsPost(true)
-				}
-			});
-
+			if (param.post_id) {
+				axios.get(baseEndPoint + `/post/${param.post_id}`, { withCredentials: true }).then((response) => {
+					if (response.data.username == currentUsername) {
+						setOwnsPost(true)
+					}
+				});
+			}
 		})).catch(err => {
 			console.log('err', err)
 		})
@@ -84,14 +85,13 @@ function Header() {
 									<Link to='/login' onClick={handleLogout}>Logout</Link>
 									&nbsp;
 									&nbsp;
-									<a>{username}</a>
+									<a style={{ color: 'teal' }}>{username}</a>
 								</> : (
 									<>
 										<Link to='/login'>Login</Link>
 										&nbsp;
 										&nbsp;
 										<Link to='/register'>Register</Link>
-
 									</>
 								)
 							}

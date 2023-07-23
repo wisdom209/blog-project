@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { format, formatISO } from 'date-fns';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 function ArticleList({ prop }) {
@@ -20,7 +20,7 @@ function ArticleList({ prop }) {
 					<div style={{ display: 'flex', gap: '3px' }}>
 						<p style={{ color: '#444a', marginTop: '5px' }}>@{prop.username}</p>
 						<p style={{ color: '#444a', marginTop: '5px' }}>&bull;</p>
-						<p style={{ color: '#444a', marginTop: '5px' }}>{format(new Date(prop.updatedAt), 'do MMMM yyyy')}</p>
+						<p style={{ color: '#444a', marginTop: '5px' }}>{format(new Date(prop.createdAt), 'do MMMM yyyy')}</p>
 
 					</div>
 

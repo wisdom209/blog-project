@@ -28,7 +28,7 @@ function View() {
 					<h2>{article.title}</h2>
 					<p>
 						by {article.username} &nbsp; &bull; &nbsp;
-						<span>{format(parseInt(article.updatedAt), 'd-MMMM-yyyy')}</span>
+						<span>{format(new Date(article.createdAt), 'do MMMM yyyy')}</span>
 					</p>
 				</div>
 			)}

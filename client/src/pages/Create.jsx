@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { MyContext } from './context';
-import { nanoid } from 'nanoid'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 
