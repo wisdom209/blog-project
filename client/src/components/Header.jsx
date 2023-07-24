@@ -43,11 +43,11 @@ function Header() {
 		<div>
 			{deleted && <Navigate to='/' />}
 			<header>
-				<div>
-					<Link to='/'>
-						<h1>Blog Reader</h1>
-					</Link>
-				</div>
+
+				<Link to='/'>
+					<h1>Blog Reader</h1>
+				</Link>
+
 
 				<nav>
 					{location.pathname == '/login' &&

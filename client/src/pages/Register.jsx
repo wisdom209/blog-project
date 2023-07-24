@@ -25,7 +25,7 @@ function Register() {
 		<div>
 			{isRegistered && <Navigate to='/login' />}
 			<Header />
-			<h2 style={{ textAlign: 'center', marginTop: '30px' }}>Register</h2>
+			<h2 style={{ textAlign: 'center', marginTop: '50px' }}>Register</h2>
 			<form className='auth-form' onSubmit={handleSubmit}>
 				<input placeholder='username' type='text' onChange={(e) => setUsername(e.target.value)} />
 				<input placeholder='password' type='password' onChange={(e) => setPassword(e.target.value)} />
@@ -34,5 +34,6 @@ function Register() {
 		</div>
 	)
 }
+
 
 export default Register	

@@ -7,6 +7,7 @@ const registerUser = async (req, res) => {
 	try {
 		let { username, password } = req.body;
 		if (password.includes(' ')) return res.status(400).json("No spaces in password")
+		username = username ? username.toLowerCase().trim() : ''
 		let user = await User.findOne({ username })
 		if (user) return res.status(500).json('registration failed')
 		password = bcrypt.hashSync(password)

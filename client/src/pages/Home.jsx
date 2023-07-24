@@ -18,8 +18,8 @@ function Home() {
 	return (
 		<>
 			<Header />
-			{article.length == 0 ? (
-				<b>Loading . . . </b>
+			{article.length == false ? (
+				article.length == 0 ? <b>Nothing to see here</b> : <b>Loading . . . </b>
 			) : (
 				<main>
 					{
