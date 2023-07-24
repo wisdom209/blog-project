@@ -13,6 +13,7 @@ function Header() {
 
 	useEffect(() => {
 		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
+			console.log('verify=>', baseEndPoint, '/verify')
 			let currentUsername = response.data.username;
 			setUsername(currentUsername)
 			if (param.post_id) {
