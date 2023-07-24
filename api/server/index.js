@@ -21,6 +21,7 @@ app.use(postRouter)
 /* CONNECT TO DB AND START SERVER */
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then((response => {
+		console.log(process.env.JWT_SECRET)
 		console.log('connected')
 		app.listen(PORT, () => {
 			console.log(`Server: ${PORT}`);
