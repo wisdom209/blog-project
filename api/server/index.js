@@ -12,7 +12,7 @@ const app = express();
 dotenv.config();
 
 app.use(cookieParser())
-app.use(cors({ origin: 'https://blog-project-nosql.vercel.app', credentials: true }));
+app.use(cors({ origin: ['https://blog-project-nosql.vercel.app', 'https://vercel.com/wisdom209/blog-project-nosql/G2nNkQMY6stQPWwq51EJiAeDP3Zi'], credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(userRouter)
