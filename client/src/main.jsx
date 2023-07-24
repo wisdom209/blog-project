@@ -12,6 +12,7 @@ import Create from './pages/Create';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
+		
 		<MyContext.Provider value={{
 			baseEndPoint: 'https://node-backend-ejif.onrender.com/'
 		}}>
