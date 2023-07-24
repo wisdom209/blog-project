@@ -12,8 +12,8 @@ function Header() {
 	const [ownsPost, setOwnsPost] = useState(false)
 
 	useEffect(() => {
+		console.log('verify=>', baseEndPoint, '/verify')
 		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
-			console.log('verify=>', baseEndPoint, '/verify')
 			let currentUsername = response.data.username;
 			setUsername(currentUsername)
 			if (param.post_id) {
