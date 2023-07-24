@@ -1,12 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const dotenv = require('dotenv');
-const Post = require('./models/Post')
-const User = require('./models/User')
-const jwt = require('jsonwebtoken')
 const PORT = process.env.PORT || 5001;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/blogreader"
 const userRouter = require('./routes/userRoute')
@@ -16,7 +12,7 @@ const app = express();
 dotenv.config();
 
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(userRouter)

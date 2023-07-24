@@ -24,16 +24,13 @@ function Edit() {
 				setParagraph(response.data.paragraph);
 				setUpdateData(response.data);
 			})
-			.catch((error) => {
-				console.log(error.message)
-			});
 	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const data = { ...updateData, title, summary, paragraph };
 		axios
-			.put(baseEndPoint + '/post', data, {withCredentials: true})
+			.put(baseEndPoint + '/post', data, { withCredentials: true })
 			.then((response) => {
 				alert('Successfully modified post');
 				setArticlePosted(true);
@@ -68,7 +65,7 @@ function Edit() {
 					}}
 				/>
 
-				<div class="quil">
+				<div className="quil">
 					<ReactQuill style={{
 						marginTop: '10px',
 						border: '1px solid #aaa',

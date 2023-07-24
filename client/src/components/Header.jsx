@@ -13,7 +13,6 @@ function Header() {
 
 	useEffect(() => {
 		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
-			console.log('get verify', response.data)
 			let currentUsername = response.data.username;
 			setUsername(currentUsername)
 			if (param.post_id) {
@@ -23,18 +22,13 @@ function Header() {
 					}
 				});
 			}
-		})).catch(err => {
-			console.log('err', err)
-		})
+		}))
 	}, [])
 
 	const handleLogout = () => {
 		axios.get(baseEndPoint + '/logout', { withCredentials: true }).then((response) => {
 			alert(response.data)
 		})
-			.catch(err => {
-				console.log(err.message)
-			})
 	}
 
 	const handleDelete = (e) => {
@@ -42,9 +36,6 @@ function Header() {
 			.then((response) => {
 				alert("Item Deleted")
 				setDeleted(true)
-			})
-			.catch(err => {
-				console.log(err.message)
 			})
 	}
 

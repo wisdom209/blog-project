@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 const registerUser = async (req, res) => {
 	try {
 		let { username, password } = req.body;
+		if (password.includes(' ')) return res.status(400).json("No spaces in password")
 		let user = await User.findOne({ username })
 		if (user) return res.status(500).json('registration failed')
 		password = bcrypt.hashSync(password)
@@ -13,7 +14,7 @@ const registerUser = async (req, res) => {
 		await user.save()
 		res.status(200).json(user)
 	} catch (error) {
-		res.status(500).json(error)
+		res.status(500).json(error.message)
 	}
 }
 
@@ -21,6 +22,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 	try {
 		let { username, password } = req.body;
+		username = username.toLowerCase().trim()
 		let user = await User.findOne({ username })
 		if (!user) return res.status(401).json('invalid credentials')
 		let isPassMatch = bcrypt.compareSync(password, user.password)

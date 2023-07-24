@@ -32,11 +32,10 @@ const createPost = async (req, res) => {
 			image,
 			username
 		} = req.body;
-		post = new Post({ ...post, username: req.user.username });
+		post = new Post({ ...post, username: req.user.username.toLowerCase().trim() });
 		await post.save();
 		res.status(200).json(post)
 	} catch (error) {
-		console.log('token', error.message)
 		res.status(500).json(error)
 	}
 };
@@ -56,7 +55,6 @@ const updatePost = async (req, res) => {
 		}
 		res.status(200).json(post)
 	} catch (error) {
-		console.log('err', error.message)
 		res.status(500).json(error.message)
 	}
 };

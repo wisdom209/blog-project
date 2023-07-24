@@ -19,27 +19,19 @@ function Create() {
 		e.preventDefault();
 		axios.get('./image.json').then(result => {
 			let len = result.data[image].length;
-			
 			let img = result.data[image][Math.floor(Math.random() * (len - 1)) + 1].image
-			console.log(img)
 			const post = {
 				title,
 				summary,
 				paragraph,
 				image: img,
 			};
-
 			axios
 				.post(baseEndPoint + '/post', post, { withCredentials: true })
 				.then((response) => {
 					alert('Post created successfully');
 					setPostCreated(true);
 				})
-				.catch(err => {
-					console.log(err)
-				})
-		}).catch(err => {
-			console.log(err)
 		})
 	};
 
