@@ -22,9 +22,9 @@ function Header() {
 					if (response.data.username == currentUsername) {
 						setOwnsPost(true)
 					}
-				});
+				}).then(e => { console.log(e.message, e) });
 			}
-		}))
+		})).catch(e => { console.log(e.message, e) })
 	}, [])
 
 	const handleLogout = () => {
