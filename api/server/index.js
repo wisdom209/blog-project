@@ -13,14 +13,15 @@ dotenv.config();
 
 app.use(cookieParser())
 
-const corsConfig = {
-	origin: ['https://blog-project-nosql.vercel.app/',
-		'https://vercel.com/wisdom209/blog-project-nosql/8tCnNd12TMUkzB7RLyDh2b1V6xpt'],
-	credentials: true
-}
 
-app.use(cors(corsConfig));
-app.options('*', cors(corsConfig))
+
+app.use(cors({
+    origin: ['https://blog-project-nosql.vercel.app/',
+	'https://vercel.com/wisdom209/blog-project-nosql/8tCnNd12TMUkzB7RLyDh2b1V6xpt'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+    credentials: true
+}))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
