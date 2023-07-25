@@ -52,7 +52,7 @@ const verifyUser = (req, res) => {
 	try {
 		const token = req.cookies.jwt;
 		jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-			if (err) return res.status(401).json(err)
+			if (err) return res.status(401).json("error", err.message, err)
 			res.status(200).json({ username: decoded.username })
 		})
 	} catch (error) {
