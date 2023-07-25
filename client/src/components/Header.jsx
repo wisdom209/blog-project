@@ -15,6 +15,7 @@ function Header() {
 		console.log('verify=>', baseEndPoint, '/verify')
 		axios.get(baseEndPoint + '/verify', { withCredentials: true }).then((response => {
 			let currentUsername = response.data.username;
+			console.log(response.data)
 			setUsername(currentUsername)
 			if (param.post_id) {
 				axios.get(baseEndPoint + `/post/${param.post_id}`, { withCredentials: true }).then((response) => {
