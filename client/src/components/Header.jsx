@@ -14,32 +14,33 @@ function Header() {
 
 	useEffect(() => {
 		console.log('verify=>', baseEndPoint, '/verify')
-
-		axios.defaults.withCredentials = true;
-		axios.get(baseEndPoint + '/verify',
-			{
-				method: 'GET',
-				withCredentials: true
-			}).then((response => {
-				let currentUsername = response.data.username;
-				console.log(response.data)
-				setUsername(currentUsername)
+		fetch(baseEndPoint + '/verify', {
+			method: 'GET',
+			credentials: 'include'
+		})
+			.then(response => response.json())
+			.then(data => {
+				let currentUsername = data.username;
+				console.log(data);
+				setUsername(currentUsername);
 				if (param.post_id) {
-					axios.defaults.withCredentials = true
-					axios.get(baseEndPoint + `/post/${param.post_id}`,
-						{
-							'method': 'GET',
-							withCredentials: true
-						})
-						.then((response) => {
-							if (response.data.username == currentUsername) {
-								setOwnsPost(true)
+					fetch(baseEndPoint + `/post/${param.post_id}`, {
+
+						method: 'GET',
+						credentials: 'include'
+					})
+						.then(response => response.json())
+						.then(data => {
+							if (data.username == currentUsername) {
+								setOwnsPost(true);
 							}
 						})
-						.then(e => { console.log(e.message, e) });
+						.catch(error => console.error(error));
 				}
-			})).catch(e => { console.log(e.message, e) })
-	}, [])
+			})
+			.catch(error => console.error(error));
+	}
+		, [])
 
 	const handleLogout = () => {
 		axios.get(baseEndPoint + '/logout', { method: 'GET', withCredentials: true }).then((response) => {
