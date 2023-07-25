@@ -1,3 +1,7 @@
+Docker*
+docker*
+.docker*
+.Docker
 # Logs
 logs
 *.log
