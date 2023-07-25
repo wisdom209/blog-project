@@ -13,7 +13,7 @@ import Create from './pages/Create';
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		<MyContext.Provider value={{
-			baseEndPoint: 'http://localhost:5001'
+			baseEndPoint: 'https://node-backend-ejif.onrender.com/'
 		}}>
 			<Router>
 				<Routes>
