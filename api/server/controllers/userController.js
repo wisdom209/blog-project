@@ -29,8 +29,7 @@ const loginUser = async (req, res) => {
 		let isPassMatch = bcrypt.compareSync(password, user.password)
 		if (!isPassMatch) return res.status(401).json('invalid credentials')
 		let token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 86000 })
-		res.cookie('jwt', token, { httpOnly: true, secure: true })
-		res.status(200).json({ username })
+		res.status(200).json({ username, token })
 
 	} catch (error) {
 		res.status(500).json(error)
@@ -40,8 +39,7 @@ const loginUser = async (req, res) => {
 /* LOGOUT USER */
 const logoutUser = async (req, res) => {
 	try {
-		res.cookie('jwt', '', { expires: new Date(0), httpOnly: true, secure: true })
-		res.status(200).json('Logged out')
+		res.status(200).json({ status: 'Logged out', token: '' })
 	} catch (error) {
 		res.status(500).json(error)
 	}
@@ -50,12 +48,14 @@ const logoutUser = async (req, res) => {
 /* VERIFY User request */
 const verifyUser = (req, res) => {
 	try {
-		const token = req.cookies.jwt;
+		const authHeader = req.headers.authorization;
+		const token = authHeader.split(' ')[1]
 		jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
 			if (err) return res.status(401).json("error", err.message, err)
 			res.status(200).json({ username: decoded.username })
 		})
 	} catch (error) {
+		console.log(error.message)
 		return res.status(500).json('unauthorized')
 	}
 }

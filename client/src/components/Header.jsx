@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link, Navigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { MyContext } from '../pages/context';
+import Cookies from 'js-cookie'
+
 
 function Header() {
 	const [username, setUsername] = useState('')
@@ -10,46 +12,45 @@ function Header() {
 	const { baseEndPoint } = useContext(MyContext);
 	const [deleted, setDeleted] = useState(false);
 	const [ownsPost, setOwnsPost] = useState(false)
-	axios.defaults.withCredentials = true;
 
 	useEffect(() => {
 		console.log('verify=>', baseEndPoint, '/verify')
-		fetch(baseEndPoint + '/verify', {
-			method: 'GET',
-			credentials: 'include'
-		})
-			.then(response => response.json())
-			.then(data => {
-				let currentUsername = data.username;
-				console.log(data);
-				setUsername(currentUsername);
-				if (param.post_id) {
-					fetch(baseEndPoint + `/post/${param.post_id}`, {
 
-						method: 'GET',
-						credentials: 'include'
+		axios.get(baseEndPoint + '/verify',
+			{
+				headers: { Authorization: `Beaerer ${Cookies.get('token')}` }
+			}
+		).then((response => {
+			let currentUsername = response.data.username;
+			console.log(response.data)
+			setUsername(currentUsername)
+			if (param.post_id) {
+				axios.get(baseEndPoint + `/post/${param.post_id}`,
+					{
+						headers: { Authorization: `Beaerer ${Cookies.get('token')}` }
 					})
-						.then(response => response.json())
-						.then(data => {
-							if (data.username == currentUsername) {
-								setOwnsPost(true);
-							}
-						})
-						.catch(error => console.error(error));
-				}
-			})
-			.catch(error => console.error(error));
-	}
-		, [])
+					.then((response) => {
+						if (response.data.username == currentUsername) {
+							setOwnsPost(true)
+						}
+					})
+					.then(e => { console.log(e.message, e) });
+			}
+		})).catch(e => { console.log(e.message, e) })
+	}, [])
 
 	const handleLogout = () => {
-		axios.get(baseEndPoint + '/logout', { method: 'GET', withCredentials: true }).then((response) => {
-			alert(response.data)
-		})
+		Cookies.set('token', '')
+		alert('Logged Out')
 	}
 
 	const handleDelete = (e) => {
-		axios.delete(baseEndPoint + `/post/${param.post_id}`, { method: 'DELETE', withCredentials: true })
+		axios.delete(baseEndPoint + `/post/${param.post_id}`,
+			{
+				headers: {
+					Authorization: `Bearer ${Cookies.get('token')}`
+				}
+			})
 			.then((response) => {
 				alert("Item Deleted")
 				setDeleted(true)

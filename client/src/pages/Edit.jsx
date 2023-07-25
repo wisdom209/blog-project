@@ -5,6 +5,7 @@ import { MyContext } from './context';
 import { useParams, Navigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
+import Cookies from 'js-cookie';
 
 function Edit() {
 	const [title, setTitle] = useState('');
@@ -30,7 +31,10 @@ function Edit() {
 		e.preventDefault();
 		const data = { ...updateData, title, summary, paragraph };
 		axios
-			.put(baseEndPoint + '/post', data, { withCredentials: true })
+			.put(baseEndPoint + '/post', data,
+				{
+					headers: { Authorization: `Bearer ${Cookies.get('token')}` }
+				})
 			.then((response) => {
 				alert('Successfully modified post');
 				setArticlePosted(true);

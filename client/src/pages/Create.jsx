@@ -5,6 +5,7 @@ import axios from 'axios';
 import { MyContext } from './context';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
+import Cookies from 'js-cookie';
 
 function Create() {
 	const [title, setTitle] = useState('');
@@ -27,7 +28,7 @@ function Create() {
 				image: img,
 			};
 			axios
-				.post(baseEndPoint + '/post', post, { withCredentials: true })
+				.post(baseEndPoint + '/post', post, { headers: { Authorization: `Bearer ${Cookies.get('tokken')}` } })
 				.then((response) => {
 					alert('Post created successfully');
 					setPostCreated(true);

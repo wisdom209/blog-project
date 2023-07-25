@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import axios from 'axios';
 import { MyContext } from './context';
 import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 function Login() {
 	const [username, setUsername] = useState()
@@ -12,8 +13,9 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		axios.post(baseEndPoint + '/login', { username, password }, { withCredentials: true }).then(response => {
+		axios.post(baseEndPoint + '/login', { username, password }).then(response => {
 			setIsLoggedIn(true)
+			Cookies.set('token', response.data.token)
 		}).catch(error => {
 			alert("Invalid credentials")
 		})

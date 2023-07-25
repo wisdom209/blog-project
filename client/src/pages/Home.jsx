@@ -11,6 +11,7 @@ function Home() {
 
 	useEffect(() => {
 		axios.get(baseEndPoint + '/posts').then((response) => {
+			console.log('hello')
 			setArticle(response.data);
 		});
 	}, []);
