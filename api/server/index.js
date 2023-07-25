@@ -12,7 +12,13 @@ const app = express();
 dotenv.config();
 
 app.use(cookieParser())
-app.use(cors({ origin: ['https://blog-project-nosql.vercel.app', 'https://vercel.com/wisdom209/blog-project-nosql/HrgPKmRLBsj6g3ibHy1nZMHu3vJW'], credentials: true }));
+/* corsConfig = { origin: ['https://blog-project-nosql.vercel.app', 'https://vercel.com/wisdom209/blog-project-nosql/HrgPKmRLBsj6g3ibHy1nZMHu3vJW'], credentials: true } */
+
+const corsConfig = { origin: ['https://blog-project-nosql.vercel.app', 'https://vercel.com/wisdom209/blog-project-nosql/HrgPKmRLBsj6g3ibHy1nZMHu3vJW'], credentials: true }
+
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig))
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(userRouter)
