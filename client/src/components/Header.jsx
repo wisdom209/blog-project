@@ -14,28 +14,41 @@ function Header() {
 
 	useEffect(() => {
 		console.log('verify=>', baseEndPoint, '/verify')
-		axios.get(baseEndPoint + '/verify', { method: 'GET', withCredentials: true }).then((response => {
-			let currentUsername = response.data.username;
-			console.log(response.data)
-			setUsername(currentUsername)
-			if (param.post_id) {
-				axios.get(baseEndPoint + `/post/${param.post_id}`, { 'method': 'GET', withCredentials: true }).then((response) => {
-					if (response.data.username == currentUsername) {
-						setOwnsPost(true)
-					}
-				}).then(e => { console.log(e.message, e) });
-			}
-		})).catch(e => { console.log(e.message, e) })
+
+		axios.defaults.withCredentials = true;
+		axios.get(baseEndPoint + '/verify',
+			{
+				method: 'GET',
+				withCredentials: true
+			}).then((response => {
+				let currentUsername = response.data.username;
+				console.log(response.data)
+				setUsername(currentUsername)
+				if (param.post_id) {
+					axios.defaults.withCredentials = true
+					axios.get(baseEndPoint + `/post/${param.post_id}`,
+						{
+							'method': 'GET',
+							withCredentials: true
+						})
+						.then((response) => {
+							if (response.data.username == currentUsername) {
+								setOwnsPost(true)
+							}
+						})
+						.then(e => { console.log(e.message, e) });
+				}
+			})).catch(e => { console.log(e.message, e) })
 	}, [])
 
 	const handleLogout = () => {
-		axios.get(baseEndPoint + '/logout', {method:'GET', withCredentials: true }).then((response) => {
+		axios.get(baseEndPoint + '/logout', { method: 'GET', withCredentials: true }).then((response) => {
 			alert(response.data)
 		})
 	}
 
 	const handleDelete = (e) => {
-		axios.delete(baseEndPoint + `/post/${param.post_id}`, {method: 'DELETE', withCredentials: true })
+		axios.delete(baseEndPoint + `/post/${param.post_id}`, { method: 'DELETE', withCredentials: true })
 			.then((response) => {
 				alert("Item Deleted")
 				setDeleted(true)
