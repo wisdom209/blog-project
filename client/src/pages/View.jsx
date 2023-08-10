@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { format } from 'date-fns';
 import Header from '../components/Header';
 import '../App.css';
@@ -24,7 +25,8 @@ function View() {
 				<b>Loading . . . </b>
 			) : (
 				<div>
-					<img src={article.image} alt="profile_image" />
+					<LazyLoadImage alt="profile image" src={article.image}/>
+					{/* <img src={article.image} alt="profile_image" /> */}
 					<h2>{article.title}</h2>
 					<p>
 						by {article.username} &nbsp; &bull; &nbsp;

@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ArticleList({ prop }) {
   const timestamp = prop.date;
@@ -11,7 +12,8 @@ function ArticleList({ prop }) {
     <div className="article-entry">
       <section>
         <Link to={`/view/${prop.id}`}>
-          <img id="article-img" src={prop.image} alt="profile_image" />
+		  <LazyLoadImage id='article-img' src={prop.image} alt='profile image'/>
+          {/* <img id="article-img" src={prop.image} alt="profile_image" /> */}
         </Link>
       </section>
 
